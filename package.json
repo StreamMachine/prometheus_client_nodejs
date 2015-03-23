@@ -7,6 +7,7 @@
     "author":       {"name": "Eric Richardson", "url": "http://ewr.is"},
     "repository":   {"type": "git", "url": "https://github.com/StreamMachine/prometheus_client_nodejs.git"},
     "main":         "./index.js",
+    "license":      "apache2",
     "engines": {
         "node": ">=0.10.0"
     },
