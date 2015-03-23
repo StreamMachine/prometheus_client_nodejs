@@ -50,6 +50,11 @@ module.exports = class Client
 
     #----------
 
+    newGauge: (args) ->
+        new Client.Gauge _.extend @_nameOpts, args
+
+    #----------
+
     listen: (port) ->
         app = express()
         app.get "/metrics", @metricsFunc

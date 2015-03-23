@@ -7,9 +7,32 @@ debug = require("debug")("prometheus-client:gauge");
 module.exports = Counter = (function(_super) {
   __extends(Counter, _super);
 
-  function Counter() {
-    return Counter.__super__.constructor.apply(this, arguments);
+  function Counter(opts) {
+    debug("Creating new gauge", opts);
+    Counter.__super__.constructor.call(this, opts);
+    this._value = 0;
+    debug("New gauge's full name is " + this._full_name);
   }
+
+  Counter.prototype.type = function() {
+    return "gauge";
+  };
+
+  Counter.prototype["default"] = function() {
+    return 0;
+  };
+
+  Counter.prototype.set = function(labels, value) {
+    var label_hash;
+    if (labels == null) {
+      labels = {};
+    }
+    if (value == null) {
+      value = null;
+    }
+    label_hash = this.label_hash_for(labels);
+    return this._values[label_hash] = value;
+  };
 
   return Counter;
 

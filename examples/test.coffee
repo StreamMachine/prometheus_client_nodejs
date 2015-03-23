@@ -10,6 +10,12 @@ counter = client.newCounter
 
 client.register(counter)
 
+gauge = client.newGauge
+    name:   "random_number"
+    help:   "A random number we occasionally set."
+
+client.register(gauge)
+
 setInterval ->
     counter.increment(period:"1sec")
 , 1000
@@ -17,6 +23,10 @@ setInterval ->
 setInterval ->
     counter.increment(period:"2sec")
 , 2000
+
+setInterval ->
+    gauge.set period:"1sec", Math.random()*1000
+, 1000
 
 # tell our client to set up a server on the given port
 client.listen(9010)

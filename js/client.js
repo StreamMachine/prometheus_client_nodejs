@@ -66,6 +66,10 @@ module.exports = Client = (function() {
     return new Client.Counter(_.extend(this._nameOpts, args));
   };
 
+  Client.prototype.newGauge = function(args) {
+    return new Client.Gauge(_.extend(this._nameOpts, args));
+  };
+
   Client.prototype.listen = function(port) {
     var app;
     app = express();

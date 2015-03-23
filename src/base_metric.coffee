@@ -36,6 +36,8 @@ module.exports = class BaseMetric
     #----------
 
     get: (labels={}) ->
+        lh = @label_hash_for(labels)
+        @_values[lh] || @default()
 
     #----------
 

@@ -34,9 +34,12 @@ module.exports = BaseMetric = (function() {
   };
 
   BaseMetric.prototype.get = function(labels) {
+    var lh;
     if (labels == null) {
       labels = {};
     }
+    lh = this.label_hash_for(labels);
+    return this._values[lh] || this["default"]();
   };
 
   BaseMetric.prototype.values = function() {
