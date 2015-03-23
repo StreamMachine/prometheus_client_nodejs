@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "gauge.js",
+  "sourceRoot": "../src/",
+  "sources": [
+    "gauge.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA,IAAA,cAAA;EAAA;iSAAA;;AAAA,KAAA,GAAQ,OAAA,CAAQ,OAAR,CAAA,CAAiB,yBAAjB,CAAR,CAAA;;AAAA,MAEM,CAAC,OAAP,GAAuB;AAAN,4BAAA,CAAA;;;;GAAA;;iBAAA;;GAAsB,OAAA,CAAQ,eAAR,EAFvC,CAAA"
+}
