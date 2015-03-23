@@ -2,19 +2,17 @@
 
 Prometheus = require "../"
 
-client = new Prometheus namespace:"counter_test"
+client = new Prometheus()
 
 counter = client.newCounter
-    name:   "elapsed_counters_total"
-    help:   "The number of counter intervals that have elapsed."
-
-client.register(counter)
+    namespace:  "counter_test"
+    name:       "elapsed_counters_total"
+    help:       "The number of counter intervals that have elapsed."
 
 gauge = client.newGauge
-    name:   "random_number"
-    help:   "A random number we occasionally set."
-
-client.register(gauge)
+    namespace:  "counter_test"
+    name:       "random_number"
+    help:       "A random number we occasionally set."
 
 setInterval ->
     counter.increment(period:"1sec")

@@ -3,61 +3,40 @@ express = require "express"
 _ = require "underscore"
 
 module.exports = class Client
+    @_globalRegistry:   null
+
     @Gauge:     require "./gauge"
     @Counter:   require "./counter"
+    @Registry:  require "./registry"
 
-    constructor: (@opts) ->
-        @_metrics = {}
-
-        @_nameOpts =
-            namespace:  @opts?.namespace
-            subsystem:  @opts?.subsystem
-
-        @metricsFunc = (req,res) =>
-            res.writeHead 200, "content-type":"text/plain; version=0.0.4"
-
-            debug "Preparing to write #{ Object.keys(@_metrics).length } metrics."
-            for k,obj of @_metrics
-                res.write """
-                # HELP #{k} #{obj.help}
-                # TYPE #{k} #{obj.type()}
-
-                """
-
-                for v in obj.values()
-                    labels = ("#{lk}=\"#{lv}\"" for lk,lv of v[0]).join(",")
-                    res.write "#{k}{#{labels}} #{v[1]}\n"
-
-            res.end()
+    constructor: (opts) ->
+        @registry = opts?.registry || (@_globalRegistry ||= new Client.Registry)
 
     #----------
 
     register: (metric) ->
-        # validate that our metric name is unique
-        name = metric._full_name
-        if @_metrics[ name ]
-            throw "Metric name must be unique."
+        @registry.register(metric)
 
-        debug "Registering new metric: #{ name }"
-        @_metrics[ name ] = metric
+    #----------
 
-        metric
+    metricsFunc: ->
+        @registry.metricsFunc
 
     #----------
 
     newCounter: (args) ->
-        @register new Client.Counter _.extend @_nameOpts, args
+        @register new Client.Counter args
 
     #----------
 
     newGauge: (args) ->
-        @register new Client.Gauge _.extend @_nameOpts, args
+        @register new Client.Gauge args
 
     #----------
 
     listen: (port) ->
         app = express()
-        app.get "/metrics", @metricsFunc
+        app.get "/metrics", @registry.metricsFunc
         app.listen port, ->
             debug "Listening on #{port}"
         app.on "error", (err) ->
