@@ -41,17 +41,17 @@ module.exports = class Client
         debug "Registering new metric: #{ name }"
         @_metrics[ name ] = metric
 
-        true
+        metric
 
     #----------
 
     newCounter: (args) ->
-        new Client.Counter _.extend @_nameOpts, args
+        @register new Client.Counter _.extend @_nameOpts, args
 
     #----------
 
     newGauge: (args) ->
-        new Client.Gauge _.extend @_nameOpts, args
+        @register new Client.Gauge _.extend @_nameOpts, args
 
     #----------
 
