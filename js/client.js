@@ -16,7 +16,7 @@ module.exports = Client = (function() {
   Client.Registry = require("./registry");
 
   function Client(opts) {
-    this.registry = (opts != null ? opts.registry : void 0) || (this._globalRegistry || (this._globalRegistry = new Client.Registry));
+    this.registry = (opts != null ? opts.registry : void 0) || (Client._globalRegistry || (Client._globalRegistry = new Client.Registry));
   }
 
   Client.prototype.register = function(metric) {

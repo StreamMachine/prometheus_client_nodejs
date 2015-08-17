@@ -10,7 +10,7 @@ module.exports = class Client
     @Registry:  require "./registry"
 
     constructor: (opts) ->
-        @registry = opts?.registry || (@_globalRegistry ||= new Client.Registry)
+        @registry = opts?.registry || (Client._globalRegistry ||= new Client.Registry)
 
     #----------
 
