@@ -23,7 +23,7 @@ setInterval(function() {
 
 setInterval(function() {
     counter.increment({
-        period: "2sec" //period label now has a value of "2sec"
+        period: "2sec" //creating a new series with a period label of "2sec"
     });
 }, 2000);
 
