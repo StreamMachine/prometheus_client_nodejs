@@ -36,6 +36,4 @@ By default, the Prometheus client will use a global namespace. That means that
 any metrics registered inside your app (even by libraries) will show up in your
 client without any need to pass around a client object.
 
-See [examples/test.coffee](examples/test.coffee) for a full example of registering
-and using metrics.
-
+See [examples/test.coffee](examples/test.coffee) for a full example of registering and using metrics in coffeescript and [examples/counterAndGauge.js](examples/counterAndGauge.js) to see the same example written in Javascript.
