@@ -30,3 +30,10 @@ module.exports = class Counter extends require("./base_metric")
         @increment labels, -dec_by
 
 
+    #----------
+
+    set: (labels={},value=0) ->
+        label_hash = @label_hash_for(labels)
+
+        @_values[label_hash] ||= @default()
+        @_values[label_hash] = value

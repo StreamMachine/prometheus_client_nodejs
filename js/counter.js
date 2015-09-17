@@ -45,6 +45,19 @@ module.exports = Counter = (function(_super) {
     return this.increment(labels, -dec_by);
   };
 
+  Counter.prototype.set = function(labels, value) {
+    var label_hash, _base;
+    if (labels == null) {
+      labels = {};
+    }
+    if (value == null) {
+      value = 0;
+    }
+    label_hash = this.label_hash_for(labels);
+    (_base = this._values)[label_hash] || (_base[label_hash] = this["default"]());
+    return this._values[label_hash] = value;
+  };
+
   return Counter;
 
 })(require("./base_metric"));

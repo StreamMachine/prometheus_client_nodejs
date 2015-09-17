@@ -9,6 +9,11 @@ counter = client.newCounter
     name:       "elapsed_counters_total"
     help:       "The number of counter intervals that have elapsed."
 
+passthrough_counter = client.newCounter
+    namespace:  "counter_test"
+    name:       "delegate_counter"
+    help:       "Value of the counter that is stored in another system."
+
 gauge = client.newGauge
     namespace:  "counter_test"
     name:       "random_number"
@@ -21,6 +26,10 @@ setInterval ->
 setInterval ->
     counter.increment(period:"2sec")
 , 2000
+
+setInterval ->
+    passthrough_counter.set period:"1sec", (new Date).getTime() / 10000
+, 1000
 
 setInterval ->
     gauge.set period:"1sec", Math.random()*1000
