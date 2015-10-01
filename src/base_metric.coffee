@@ -19,6 +19,7 @@ module.exports = class BaseMetric
         @_labelKeys     = null
 
         throw "Name is required" if !@name
+        throw "Name #{@name} is not valid" if !@name_is_valid()
         throw "Help is required" if !@help
 
         @_full_name     = _.compact([ @namespace, @subsystem, @name ]).join("_")
@@ -70,3 +71,8 @@ module.exports = class BaseMetric
         @_labelCache[lh] = labels
 
         lh
+
+    #----------
+
+    name_is_valid: () ->
+        /^[a-zA-Z0-9_:]*$/.test(this.name)
