@@ -19,6 +19,9 @@ module.exports = BaseMetric = (function() {
     if (!this.name) {
       throw "Name is required";
     }
+    if (!this.name_is_valid()) {
+      throw "Name " + this.name + " is not valid";
+    }
     if (!this.help) {
       throw "Help is required";
     }
@@ -76,6 +79,10 @@ module.exports = BaseMetric = (function() {
     }
     this._labelCache[lh] = labels;
     return lh;
+  };
+
+  BaseMetric.prototype.name_is_valid = function() {
+    return /^[a-zA-Z0-9_:]*$/.test(this.name);
   };
 
   return BaseMetric;
