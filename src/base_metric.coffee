@@ -1,5 +1,4 @@
 debug   = require("debug")("prometheus-client:metric")
-_       = require "underscore"
 hash    = require "object-hash"
 
 module.exports = class BaseMetric
@@ -21,7 +20,7 @@ module.exports = class BaseMetric
         throw "Name is required" if !@name
         throw "Help is required" if !@help
 
-        @_full_name     = _.compact([ @namespace, @subsystem, @name ]).join("_")
+        @_full_name     = [ @namespace, @subsystem, @name ].filter((s)->s).join("_")
 
     #----------
 
@@ -59,7 +58,7 @@ module.exports = class BaseMetric
         # Validate each label key
         for k,v of labels
             throw "Label #{k} must not start with __" if /^__/.test(k)
-            throw "Label #{k} is reserved" if _(['instance','job']).contains(k)
+            throw "Label #{k} is reserved" if 'instance'==k || 'job'==k
 
         # Validate that the set of keys is correct
         if @_labelKeys && hash.keys(labels) != @_labelKeys

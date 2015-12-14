@@ -1,6 +1,5 @@
 debug = require("debug")("prometheus-client")
 express = require "express"
-_ = require "underscore"
 
 module.exports = class Client
     @_globalRegistry:   null
