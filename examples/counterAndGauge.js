@@ -9,7 +9,7 @@ var counter = client.newCounter({
     help: "The number of counter intervals that have elapsed."
 });
 
-gauge = client.newGauge({
+var gauge = client.newGauge({
     namespace: "counter_test",
     name: "random_number",
     help: "A random number we occasionally set."
