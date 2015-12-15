@@ -1,8 +1,6 @@
-var BaseMetric, debug, hash, _;
+var BaseMetric, debug, hash;
 
 debug = require("debug")("prometheus-client:metric");
-
-_ = require("underscore");
 
 hash = require("object-hash");
 
@@ -22,7 +20,9 @@ module.exports = BaseMetric = (function() {
     if (!this.help) {
       throw "Help is required";
     }
-    this._full_name = _.compact([this.namespace, this.subsystem, this.name]).join("_");
+    this._full_name = [this.namespace, this.subsystem, this.name].filter(function(s) {
+      return s;
+    }).join("_");
   }
 
   BaseMetric.prototype.type = function() {
@@ -64,7 +64,7 @@ module.exports = BaseMetric = (function() {
       if (/^__/.test(k)) {
         throw "Label " + k + " must not start with __";
       }
-      if (_(['instance', 'job']).contains(k)) {
+      if ('instance' === k || 'job' === k) {
         throw "Label " + k + " is reserved";
       }
     }

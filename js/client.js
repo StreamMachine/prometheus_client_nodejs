@@ -1,10 +1,8 @@
-var Client, debug, express, _;
+var Client, debug, express;
 
 debug = require("debug")("prometheus-client");
 
 express = require("express");
-
-_ = require("underscore");
 
 module.exports = Client = (function() {
   Client._globalRegistry = null;
